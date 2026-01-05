@@ -5,32 +5,44 @@ import CafeInfo from './components/CafeInfo/CafeInfo'
 import VoteOptions from './components/VoteOptions/VoteOptions'
 import VoteStats from './components/VoteStats/VoteStats'
 import Notification from './components/Notification/Notification'
+import Votes from './types/votes';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [votes, setVotes] = useState<Votes>({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
 
+  const updateValue = (key: keyof Votes) => {
+    setVotes(prev => ({
+      ...prev,
+      [key]: prev[key] + 1,
+    }));
+  };
+
+  const onReset = () => {
+    setVotes({ good: 0, neutral: 0, bad: 0 });
+  };
+
+  const totalVotes =
+    votes.good + votes.neutral + votes.bad;
+  const positiveRate = totalVotes? Math.round((votes.good / totalVotes) * 100) : 0;
+  
+  
   return (
     <>
-      <div className={css.app}>
-          <CafeInfo />
-          <VoteOptions />
-          <VoteStats />
-          <Notification />
-      </div>
-     
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CafeInfo />
+      <VoteOptions
+        totalVotes={totalVotes}
+        onVote={updateValue}
+        onReset={onReset}
+      />
+      {totalVotes === 0 ? (
+        <Notification />
+      ) : (
+          <VoteStats votes={votes} totalVotes={totalVotes} positiveRate={ positiveRate } />
+      )}
     </>
-  )
+  );
 }
-
-export default App
