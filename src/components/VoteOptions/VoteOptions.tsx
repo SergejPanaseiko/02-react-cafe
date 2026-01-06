@@ -9,7 +9,7 @@ interface VoteOptionsProps{
     onReset: () => void;
     };
 
-    
+
 export default function VoteOptions({totalVotes, onVote,onReset }: VoteOptionsProps) {
     return (
         <div className={css.container}>
