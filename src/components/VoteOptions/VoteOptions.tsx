@@ -2,11 +2,6 @@ import css from './VoteOptions.module.css';
 import { Votes } from '../../types/votes';
 // import { VoteType } from '../../types/votes';
 
-// interface VoteOptionsProps {
-//   onVote: (type: VoteType) => void;
-//   onReset: () => void;
-//   canReset: boolean;
-// }
 
 interface VoteOptionsProps{
     totalVotes: number;
