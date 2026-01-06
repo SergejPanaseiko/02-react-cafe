@@ -14,12 +14,13 @@ export default function App() {
     bad: 0,
   });
 
-  const updateValue = (key: keyof Votes) => {
-    setVotes(prev => ({
-      ...prev,
-      [key]: prev[key] + 1,
-    }));
-  };
+const updateValue = (key: VoteType) => {
+  setVotes(prev => ({
+    ...prev,
+    [key]: prev[key] + 1,
+  }));
+};
+
 
   const onReset = () => {
     setVotes({ good: 0, neutral: 0, bad: 0 });
